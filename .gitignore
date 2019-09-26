@@ -1,3 +1,7 @@
 node_modules/
 server/config/config.json
 data/
+c_code/
+cpp_code/
+java_code/
+python_code/
