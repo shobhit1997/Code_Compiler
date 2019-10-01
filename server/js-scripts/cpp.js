@@ -6,7 +6,7 @@ function compile(fileName,timeout=60000){
 
 	let folder_path='cpp_code';
 	let file_path = folder_path+"/"+fileName+'.cpp'
-	const cmd = `docker run -i -v "$PWD"/${folder_path}/:/usr/src/myapp -w /usr/src/myapp gcc:6.3 g++ -std=c++0x -w -pipe -O2 -fomit-frame-pointer -lm -o ${fileName} ${fileName}.cpp`;
+	const cmd = `sudo docker run -i -v "$PWD"/${folder_path}/:/usr/src/myapp -w /usr/src/myapp gcc:6.3 g++ -std=c++0x -w -pipe -O2 -fomit-frame-pointer -lm -o ${fileName} ${fileName}.cpp`;
 
 	const result = shell.exec(cmd,{timeout});
 	const jsonResp = {};
@@ -28,7 +28,7 @@ function run(fileName,input,timeout=10000){
 	let file_path = folder_path+"/"+fileName+'.cpp'
 	let input_path = folder_path+"/"+fileName+'_input.txt'
 	fs.writeFileSync(path.resolve(__dirname, `../../${input_path}`),input);
-	const cmd = `docker run -i -v "$PWD"/${folder_path}/:/usr/src/myapp -w /usr/src/myapp gcc:6.3 timeout --preserve-status 1 ./${fileName} < "$PWD"/${input_path}`;
+	const cmd = `sudo docker run -i -v "$PWD"/${folder_path}/:/usr/src/myapp -w /usr/src/myapp gcc:6.3 timeout --preserve-status 1 ./${fileName} < "$PWD"/${input_path}`;
 	const result = shell.exec(cmd,{timeout});
 	console.log(result);
 	const jsonResp = {};
