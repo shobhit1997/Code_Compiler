@@ -4,7 +4,14 @@ const {compile_cpp,run_cpp} = require('./cpp');
 const {compile_c,run_c} = require('./c');
 async function compileJava(sourceCode) {
 	try{
-	 	let fileName = getClassName(sourceCode);
+	 	let fileName = "";
+	 	try{
+	 		fileName=getClassName(sourceCode);
+	 	}
+	 	catch(error){
+	 		console.log(error);
+	 		return error;
+	 	}
 		const folderName = "java-"+new Date().getTime()+"-"+Math.floor(1000 + Math.random() * 9000);
 		let message=await compile_java({fileName,folderName,sourceCode});
 		if(message.exitCode!=0){
@@ -231,7 +238,7 @@ async function compileAndRunSource(sourceCode,input,lang){
 		"c":compileAndRunC,
 		"python":runPython,
 	}
-	return await map[lang]({sourceCode,input});
+	return map[lang]({sourceCode,input});
 }
 
 module.exports={compileAndRunSource,compileJava,runJava,compileC,runC,compileCpp,runCpp, runPython};

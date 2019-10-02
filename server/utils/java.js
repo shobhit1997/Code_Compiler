@@ -43,6 +43,7 @@ function getClassName(code){
     }
     else {
         throw {
+        	isError:true,
             error: 'Invalid Class Name',
             errorType: 'pre-compile-time'
         };
